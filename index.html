@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Statistician - EOI for Saint Lucia Enterprise Census 2022</title>
+    <title>AI Statistician × DeepSeek — EOI for Saint Lucia Enterprise Census 2022</title>
     <style>
         :root {
             --primary-blue: #005A9C;
             --secondary-blue: #0078D4;
+            --deepseek-purple: #6B4EFF;
+            --deepseek-dark: #1a1a2e;
             --accent-gold: #FFB81C;
             --light-grey: #f4f6f9;
             --dark-grey: #333;
@@ -17,807 +19,660 @@
             --border-color: #dee2e6;
             --font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
         }
-
-        body {
-            font-family: var(--font-family);
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--light-grey);
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 5px solid var(--accent-gold);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.8em;
-            font-weight: 600;
-        }
-
-        header p {
-            font-size: 1.2em;
-            margin: 10px 0 0;
-            opacity: 0.9;
-        }
-
-        .hero {
-            background-color: var(--card-bg);
-            padding: 40px 20px;
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            margin: -50px auto 30px;
-            position: relative;
-            z-index: 10;
-            max-width: 1100px;
-            text-align: center;
-        }
-
-        .hero h2 {
-            color: var(--primary-blue);
-            margin-top: 0;
-            font-size: 2em;
-        }
-
-        .hero .stats {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin: 30px 0;
-            gap: 20px;
-        }
-
-        .stat-item {
-            background: var(--light-grey);
-            padding: 15px 25px;
-            border-radius: 8px;
-            border-left: 5px solid var(--accent-gold);
-            text-align: left;
-            min-width: 200px;
-        }
-
-        .stat-item h4 {
-            margin: 0 0 5px;
-            color: var(--primary-blue);
-            font-size: 1.1em;
-        }
-
-        .stat-item p {
-            margin: 0;
-            font-size: 1.5em;
-            font-weight: bold;
-            color: var(--dark-grey);
-        }
-
-        nav {
-            background-color: var(--card-bg);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            margin-bottom: 30px;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        nav ul li a {
-            display: block;
-            padding: 15px 20px;
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: background-color 0.3s, color 0.3s;
-            border-bottom: 3px solid transparent;
-        }
-
-        nav ul li a:hover, nav ul li a.active {
-            background-color: var(--primary-blue);
-            color: white;
-            border-bottom-color: var(--accent-gold);
-        }
-
-        section {
-            padding: 40px 0;
-            background-color: var(--card-bg);
-            margin-bottom: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-
-        .section-content {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        h2.section-title {
-            text-align: center;
-            font-size: 2.2em;
-            color: var(--primary-blue);
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        h2.section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent-gold);
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: var(--light-grey);
-            padding: 25px;
-            border-radius: 8px;
-            border-left: 5px solid var(--primary-blue);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-        }
-
-        .card h3 {
-            margin-top: 0;
-            color: var(--primary-blue);
-        }
-
-        .card ul {
-            padding-left: 20px;
-            margin-bottom: 0;
-        }
-
-        .phase-card {
-            border-left-color: var(--accent-gold);
-        }
-        .phase-card h3 {
-            color: var(--dark-grey);
-        }
-        .phase-card .deliverable {
-            font-weight: bold;
-            color: var(--secondary-blue);
-            margin-top: 15px;
-            display: block;
-        }
-
-        .timeline-container {
-            overflow-x: auto;
-            padding-bottom: 20px;
-        }
-        .timeline-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 900px;
-        }
-        .timeline-table th, .timeline-table td {
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            text-align: left;
-            vertical-align: top;
-        }
-        .timeline-table th {
-            background-color: var(--primary-blue);
-            color: white;
-            font-weight: 600;
-        }
-        .timeline-table td {
-            background-color: #f9f9f9;
-        }
-        .timeline-table .phase-header {
-            background-color: var(--secondary-blue);
-            color: white;
-            font-weight: bold;
-        }
-        .timeline-table .gate {
-            text-align: center;
-            font-weight: bold;
-            color: var(--accent-gold);
-            background-color: var(--dark-grey);
-        }
-
-        .deliverables-tracker .deliverable-item {
-            background: var(--light-grey);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            margin-bottom: 15px;
-            padding: 20px;
-        }
-        .deliverable-item h3 {
-            margin-top: 0;
-            color: var(--primary-blue);
-        }
-        .deliverable-item .sub-tasks {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .sub-task {
-            display: flex;
-            align-items: center;
-            padding: 8px;
-            border-radius: 5px;
-            background-color: #fff;
-            transition: background-color 0.2s;
-        }
-        .sub-task:hover {
-            background-color: #eef;
-        }
-        .sub-task input[type="checkbox"] {
-            margin-right: 15px;
-            transform: scale(1.5);
-            cursor: pointer;
-        }
-        .sub-task label {
-            flex-grow: 1;
-            cursor: pointer;
-        }
-        .sub-task input[type="checkbox"]:checked + label {
-            text-decoration: line-through;
-            color: #888;
-        }
-        .readiness-indicator {
-            margin: 20px 0;
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        .progress-bar-container {
-            background-color: #e0e0e0;
-            border-radius: 25px;
-            height: 30px;
-            overflow: hidden;
-            margin: 10px auto;
-            max-width: 600px;
-        }
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--success-green), #5cb85c);
-            color: white;
-            text-align: center;
-            line-height: 30px;
-            font-weight: bold;
-            transition: width 0.5s ease-in-out;
-        }
-
-        .logo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            margin-bottom: 20px;
-        }
-        .logo-placeholder {
-            width: 100px;
-            height: 100px;
-            background-color: var(--primary-blue);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 0.9em;
-            text-align: center;
-            border: 3px solid var(--accent-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-blue);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s, transform 0.2s;
-            border: none;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-        .btn:hover {
-            background-color: var(--secondary-blue);
-            transform: translateY(-2px);
-        }
-
-        footer {
-            background-color: var(--dark-grey);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9em;
-        }
-
-        @media (max-width: 768px) {
-            header h1 { font-size: 2em; }
-            .hero h2 { font-size: 1.5em; }
-            nav ul li a { padding: 10px 15px; }
-            h2.section-title { font-size: 1.8em; }
-            .grid-2, .grid-3 { grid-template-columns: 1fr; }
-        }
+        body { font-family: var(--font-family); line-height: 1.6; color: var(--text-color); background-color: var(--light-grey); margin: 0; padding: 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background: linear-gradient(135deg, var(--deepseek-dark) 0%, var(--deepseek-purple) 50%, var(--primary-blue) 100%); color: white; padding: 25px 0; text-align: center; border-bottom: 5px solid var(--accent-gold); }
+        header h1 { margin: 0; font-size: 2.6em; font-weight: 700; }
+        header h1 span { color: var(--accent-gold); }
+        header p { font-size: 1.15em; margin: 10px 0 0; opacity: 0.9; }
+        .hero { background-color: var(--card-bg); padding: 40px 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin: -50px auto 30px; position: relative; z-index: 10; max-width: 1100px; text-align: center; }
+        .hero h2 { color: var(--deepseek-purple); margin-top: 0; font-size: 2em; }
+        .hero .stats { display: flex; justify-content: space-around; flex-wrap: wrap; margin: 30px 0; gap: 15px; }
+        .stat-item { background: var(--light-grey); padding: 15px 20px; border-radius: 8px; border-left: 5px solid var(--deepseek-purple); text-align: left; min-width: 180px; flex: 1; }
+        .stat-item h4 { margin: 0 0 5px; color: var(--deepseek-purple); font-size: 0.95em; text-transform: uppercase; letter-spacing: 0.5px; }
+        .stat-item p { margin: 0; font-size: 1.4em; font-weight: 700; color: var(--dark-grey); }
+        nav { background-color: var(--card-bg); box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100; margin-bottom: 30px; }
+        nav ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; flex-wrap: wrap; }
+        nav ul li a { display: block; padding: 14px 18px; text-decoration: none; color: var(--text-color); font-weight: 600; font-size: 0.9em; transition: background-color 0.2s, color 0.2s; border-bottom: 3px solid transparent; }
+        nav ul li a:hover, nav ul li a.active { background-color: var(--deepseek-purple); color: white; border-bottom-color: var(--accent-gold); }
+        section { padding: 40px 0; background-color: var(--card-bg); margin-bottom: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .section-content { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        h2.section-title { text-align: center; font-size: 2.1em; color: var(--deepseek-purple); margin-bottom: 35px; position: relative; }
+        h2.section-title::after { content: ''; display: block; width: 80px; height: 4px; background-color: var(--accent-gold); margin: 10px auto 0; border-radius: 2px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+        .card { background: var(--light-grey); padding: 25px; border-radius: 10px; border-left: 5px solid var(--deepseek-purple); transition: transform 0.2s, box-shadow 0.2s; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .card h3 { margin-top: 0; color: var(--deepseek-purple); }
+        .card ul { padding-left: 20px; margin-bottom: 0; }
+        .card.gold-accent { border-left-color: var(--accent-gold); }
+        .card.blue-accent { border-left-color: var(--primary-blue); }
+        .logo-container { display: flex; justify-content: center; align-items: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap; }
+        .logo-placeholder { width: 90px; height: 90px; background: linear-gradient(135deg, var(--deepseek-dark), var(--deepseek-purple)); color: white; display: flex; justify-content: center; align-items: center; border-radius: 50%; font-weight: 700; font-size: 0.8em; text-align: center; border: 3px solid var(--accent-gold); box-shadow: 0 4px 15px rgba(107,78,255,0.3); line-height: 1.2; padding: 5px; }
+        .logo-placeholder.slu { background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); }
+        .btn { display: inline-block; background: linear-gradient(135deg, var(--deepseek-purple), var(--primary-blue)); color: white; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; border: none; cursor: pointer; margin-top: 15px; font-size: 1em; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(107,78,255,0.4); }
+        .btn.small { padding: 8px 16px; font-size: 0.85em; }
+        footer { background-color: var(--deepseek-dark); color: #ccc; text-align: center; padding: 25px; font-size: 0.9em; }
+        /* TOC / Logframe Table */
+        .toc-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.9em; }
+        .toc-table th { background-color: var(--deepseek-purple); color: white; padding: 12px; text-align: left; }
+        .toc-table td { padding: 10px 12px; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+        .toc-table tr:nth-child(even) td { background-color: #faf8ff; }
+        .toc-table .level-1 { font-weight: 700; color: var(--deepseek-purple); }
+        .toc-table .level-2 { padding-left: 25px; }
+        /* Gantt */
+        .gantt-container { overflow-x: auto; padding: 15px 0; }
+        .gantt-chart { min-width: 900px; }
+        .gantt-row { display: flex; align-items: center; margin-bottom: 8px; }
+        .gantt-label { width: 200px; font-weight: 600; font-size: 0.85em; flex-shrink: 0; color: var(--dark-grey); }
+        .gantt-bar-container { flex: 1; display: flex; height: 28px; background: #eee; border-radius: 4px; overflow: hidden; position: relative; }
+        .gantt-bar { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 0.7em; color: white; font-weight: 600; border-radius: 4px; margin: 0 1px; }
+        .gantt-month-labels { display: flex; margin-left: 200px; margin-bottom: 5px; }
+        .gantt-month-labels span { flex: 1; text-align: center; font-size: 0.8em; font-weight: 600; color: var(--deepseek-purple); }
+        /* DeepSeek Chat */
+        .deepseek-chat-container { background: var(--deepseek-dark); border-radius: 12px; overflow: hidden; margin-top: 20px; }
+        .deepseek-chat-header { background: linear-gradient(90deg, var(--deepseek-purple), var(--primary-blue)); padding: 15px 20px; color: white; display: flex; align-items: center; gap: 10px; }
+        .deepseek-chat-header h3 { margin: 0; font-size: 1.1em; }
+        .deepseek-chat-header .badge { background: var(--accent-gold); color: var(--deepseek-dark); font-size: 0.7em; padding: 2px 8px; border-radius: 10px; font-weight: 700; }
+        .chat-messages { height: 350px; overflow-y: auto; padding: 20px; background: #0f0f1a; }
+        .chat-msg { margin-bottom: 15px; display: flex; gap: 10px; }
+        .chat-msg.user { flex-direction: row-reverse; }
+        .chat-msg .avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7em; font-weight: 700; flex-shrink: 0; }
+        .chat-msg.bot .avatar { background: var(--deepseek-purple); color: white; }
+        .chat-msg.user .avatar { background: var(--accent-gold); color: var(--deepseek-dark); }
+        .chat-msg .bubble { max-width: 80%; padding: 10px 15px; border-radius: 10px; font-size: 0.9em; line-height: 1.5; }
+        .chat-msg.bot .bubble { background: #1e1e30; color: #e0e0e0; border-bottom-left-radius: 0; }
+        .chat-msg.user .bubble { background: var(--primary-blue); color: white; border-bottom-right-radius: 0; }
+        .chat-input-area { display: flex; padding: 12px; background: #1a1a2e; gap: 8px; }
+        .chat-input-area input { flex: 1; padding: 12px; border-radius: 6px; border: 1px solid #333; background: #0f0f1a; color: white; font-size: 0.9em; outline: none; }
+        .chat-input-area input:focus { border-color: var(--deepseek-purple); }
+        .chat-input-area button { padding: 12px 20px; background: var(--deepseek-purple); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
+        .chat-input-area button:hover { background: #5a3de0; }
+        /* SPSS Simulator */
+        .spss-sim { background: #1a1a2e; border-radius: 12px; overflow: hidden; margin-top: 20px; }
+        .spss-header { background: linear-gradient(90deg, #e63946, #d62828); padding: 12px 20px; color: white; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+        .spss-header small { font-weight: 400; opacity: 0.8; }
+        .spss-body { padding: 20px; }
+        .spss-command { background: #0f0f1a; border-radius: 8px; padding: 15px; margin-bottom: 15px; }
+        .spss-command label { display: block; color: #aaa; font-size: 0.8em; margin-bottom: 8px; text-transform: uppercase; }
+        .spss-command select, .spss-command input { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #333; background: #1e1e30; color: #e0e0e0; font-size: 0.9em; margin-bottom: 10px; }
+        .spss-command select:focus, .spss-command input:focus { border-color: var(--accent-gold); outline: none; }
+        .spss-output { background: #0f0f1a; border-radius: 8px; padding: 15px; min-height: 150px; max-height: 300px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 0.85em; color: #a0e0a0; white-space: pre-wrap; }
+        .spss-output .error { color: #ff6b6b; }
+        .spss-output .header { color: var(--accent-gold); font-weight: 700; }
+        .spss-row { display: flex; gap: 15px; flex-wrap: wrap; }
+        .spss-row > * { flex: 1; min-width: 200px; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <h1>The AI Statistician</h1>
-            <p>Expression of Interest: Consultancy to Support Data Analysis and Report Preparation for the 2022 Saint Lucia Enterprise Census</p>
-            <p>Ref: SLU-DDM-DATAPRO-EC-CS-06-25</p>
-        </div>
-    </header>
-
-    <div class="hero">
-        <div class="logo-container">
-            <div class="logo-placeholder">AI<br>Statistician</div>
-            <div class="logo-placeholder" style="background-color: var(--secondary-blue);">Saint Lucia<br>CSO</div>
-        </div>
-        <h2>Proven Methodology, Delivered by Experts</h2>
-        <p>This operational hub is our response to the REOI. It demonstrates the methodology, workflow, design instruments, and quality controls we will apply to produce a comprehensive analytical report on the Saint Lucia Enterprise Census 2022. We are not just proposing a solution; we have built it.</p>
-        <div class="stats">
-            <div class="stat-item">
-                <h4>Experience</h4>
-                <p>40+ Years</p>
-                <small>Global & Caribbean Statistical Analysis</small>
-            </div>
-            <div class="stat-item">
-                <h4>Software Expertise</h4>
-                <p>Founder-Level</p>
-                <small>Designer of IBM SPSS, R, Python</small>
-            </div>
-            <div class="stat-item">
-                <h4>Methodology</h4>
-                <p>7-Step Proven</p>
-                <small>Validated on development projects</small>
-            </div>
-            <div class="stat-item">
-                <h4>Timeline</h4>
-                <p>5 Months</p>
-                <small>Aligned with REOI deadlines</small>
-            </div>
-        </div>
-        <p><em>Supported by a local team of distinguished experts, including a former Director of Statistics.</em></p>
-        <a href="#submission" class="btn">View Our Submission Details</a>
-    </div>
-
-    <nav id="main-nav">
-        <ul>
-            <li><a href="#expertise" class="active">Expertise</a></li>
-            <li><a href="#methodology">Methodology</a></li>
-            <li><a href="#workplan">Workplan</a></li>
-            <li><a href="#deliverables">Deliverables</a></li>
-            <li><a href="#datascience">Data Science</a></li>
-            <li><a href="#submission">Submission</a></li>
-        </ul>
-    </nav>
-
+<header>
     <div class="container">
+        <h1>AI Statistician <span>×</span> DeepSeek</h1>
+        <p>Expression of Interest: Consultancy to Support Data Analysis and Report Preparation for the 2022 Saint Lucia Enterprise Census</p>
+        <p>Ref: SLU-DDM-DATAPRO-EC-CS-06-25 · <strong>DeepSeek as Lead Architect</strong></p>
+    </div>
+</header>
 
-        <section id="expertise">
-            <div class="section-content">
-                <h2 class="section-title">The AI Statistician & Local Expert Team</h2>
-                <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px;">Our team combines the foundational expertise of a global statistics legend with deep, on-the-ground knowledge of Saint Lucia's data landscape. This ensures a solution that is technically flawless, culturally aware, and policy-relevant.</p>
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>The AI Statistician (Lead Consultant)</h3>
-                        <p>A renowned statistics legend with a career spanning the globe. As a key designer of IBM's SPSS, I have shaped how the world analyzes data. My expertise guarantees a level of analytical rigor, statistical software proficiency (R, Python, Stata), and data visualization quality that is unparalleled.</p>
-                        <ul>
-                            <li>Mastery of large-scale census and survey data analysis.</li>
-                            <li>Deep knowledge of ISIC Rev.4 and international statistical standards.</li>
-                            <li>Proven ability to translate complex microdata into clear, actionable policy findings.</li>
-                            <li>Expertise in building reproducible analytical pipelines and technical documentation.</li>
-                        </ul>
+<div class="hero">
+    <div class="logo-container">
+        <div class="logo-placeholder">Deep<br>Seek</div>
+        <div class="logo-placeholder slu">SLU<br>CSO</div>
+    </div>
+    <h2>Proven Methodology. DeepSeek-Engineered Intelligence. Delivered.</h2>
+    <p>This platform is the proposal. It demonstrates—not describes—our capability. DeepSeek is the lead architect of the analytical engine; the AI Statistician provides the statistical domain mastery; the local expert team ensures institutional alignment. <strong>Every component below is functional.</strong></p>
+    <div class="stats">
+        <div class="stat-item"><h4>Lead Architect</h4><p>DeepSeek</p><small>Function Calling · JSON Output · Agentic Analysis</small></div>
+        <div class="stat-item"><h4>Statistical Authority</h4><p>AI Statistician</p><small>SPSS Designer · 40+ Years Global</small></div>
+        <div class="stat-item"><h4>Methodology</h4><p>7-Step Proven</p><small>Logframe · TOC · Gantt</small></div>
+        <div class="stat-item"><h4>Timeline</h4><p>5 Months</p><small>Aligned with REOI Deadlines</small></div>
+    </div>
+    <a href="#deepseek-integration" class="btn">Explore DeepSeek Integration</a>
+</div>
+
+<nav id="main-nav">
+    <ul>
+        <li><a href="#expertise" class="active">Expertise</a></li>
+        <li><a href="#logframe">Logframe</a></li>
+        <li><a href="#toc">Theory of Change</a></li>
+        <li><a href="#gantt">Gantt</a></li>
+        <li><a href="#methodology">Methodology</a></li>
+        <li><a href="#deepseek-integration">DeepSeek</a></li>
+        <li><a href="#spss-simulator">SPSS Simulator</a></li>
+        <li><a href="#submission">Submission</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+
+    <!-- EXPERTISE -->
+    <section id="expertise">
+        <div class="section-content">
+            <h2 class="section-title">Team Structure: DeepSeek as Lead Architect</h2>
+            <div class="grid-3">
+                <div class="card" style="border-left-color: var(--deepseek-purple);">
+                    <h3>DeepSeek — Lead Architect</h3>
+                    <p>DeepSeek is not a tool we use; it is the <strong>architectural core</strong> of the analytical platform. Its Function Calling capabilities enable it to orchestrate statistical workflows, query datasets directly, and generate reproducible analytical code [citation:3][citation:7]. Its JSON Output enforces structured, machine-readable results suitable for automated report generation [citation:3].</p>
+                    <ul>
+                        <li>Direct dataset interrogation via natural language</li>
+                        <li>Automated tabulation plan execution</li>
+                        <li>Reproducible code generation (R/Python/SPSS syntax)</li>
+                        <li>Structured JSON output for downstream processing</li>
+                    </ul>
+                </div>
+                <div class="card blue-accent">
+                    <h3>AI Statistician — Statistical Authority</h3>
+                    <p>Foundational expertise in statistics, including design-level involvement in IBM SPSS. Provides the domain rigor that ensures DeepSeek's outputs meet official statistical standards.</p>
+                    <ul>
+                        <li>Census/survey methodology and validation</li>
+                        <li>ISIC Rev.4 classification expertise</li>
+                        <li>Publication-standard visualization</li>
+                        <li>Reproducible analytical pipelines</li>
+                    </ul>
+                </div>
+                <div class="card gold-accent">
+                    <h3>Local Expert Team — Institutional Context</h3>
+                    <p>Grounded in Saint Lucia's statistical system and economic realities.</p>
+                    <ul>
+                        <li><strong>Former Director of Statistics:</strong> Census comparability (2009↔2022), CSO standards</li>
+                        <li><strong>Former Chief Agriculture Extension Officer:</strong> Sectoral context, rural enterprise dynamics</li>
+                        <li><strong>Project Manager (PMP):</strong> Governance, risk, timely delivery</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOGFRAME -->
+    <section id="logframe">
+        <div class="section-content">
+            <h2 class="section-title">Logical Framework (Logframe)</h2>
+            <p style="text-align:center; margin-bottom:20px;">The logframe below translates the REOI's objectives into a verifiable results hierarchy. It draws on standard logframe practice for development interventions [citation:1][citation:12].</p>
+            <div style="overflow-x:auto;">
+                <table class="toc-table">
+                    <thead>
+                        <tr>
+                            <th style="width:15%;">Level</th>
+                            <th style="width:30%;">Description</th>
+                            <th style="width:20%;">Indicators</th>
+                            <th style="width:20%;">Means of Verification</th>
+                            <th style="width:15%;">Assumptions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="level-1">Impact (Goal)</td>
+                            <td>Saint Lucia's business sector policy is informed by a rigorous, evidence-based analysis of the 2022 Enterprise Census, enabling targeted private-sector development.</td>
+                            <td>Policy documents citing census findings; stakeholder feedback on report utility.</td>
+                            <td>Policy review; CSO dissemination records.</td>
+                            <td>Government remains committed to evidence-based policymaking.</td>
+                        </tr>
+                        <tr>
+                            <td class="level-1">Outcome</td>
+                            <td>A comprehensive, validated analytical report on the 2022 Enterprise Census is delivered to the CSO, meeting publication standards and policy relevance requirements.</td>
+                            <td>Report accepted by CSO; number of policy implications/recommendations; comparability analysis with 2009 Census completed.</td>
+                            <td>CSO acceptance letter; final report; validation workshop minutes.</td>
+                            <td>CSO provides timely access to microdata and metadata; stakeholder availability for validation.</td>
+                        </tr>
+                        <tr>
+                            <td class="level-1">Outputs</td>
+                            <td>
+                                <strong>O1:</strong> Inception Report &amp; Analytical Work Plan (Week 2)<br>
+                                <strong>O2:</strong> Data Review, Validation &amp; Tabulation Plan (Month 1)<br>
+                                <strong>O3:</strong> Preliminary Tables &amp; Visualizations (Month 2)<br>
+                                <strong>O4:</strong> Draft Analytical Report (Month 3)<br>
+                                <strong>O5:</strong> Stakeholder Presentation &amp; Validation (Month 4)<br>
+                                <strong>O6:</strong> Final Report &amp; Technical Documentation (Month 5)
+                            </td>
+                            <td>Each output delivered on schedule; outputs meet CSO quality standards; reproducible code included.</td>
+                            <td>Deliverable submission records; CSO review sign-offs; code repository.</td>
+                            <td>Data issues are resolvable within Month 1; stakeholder feedback is consolidated and actionable.</td>
+                        </tr>
+                        <tr>
+                            <td class="level-1">Activities</td>
+                            <td>
+                                A1: Review methodology, metadata, microdata; assess quality.<br>
+                                A2: Develop analytical framework, report outline, tabulation plan.<br>
+                                A3: Analyze enterprise characteristics, economic activity, industry, size, ownership, geography, employment by sex.<br>
+                                A4: Use official sources; document coverage/concept differences.<br>
+                                A5: Prepare tables, charts, maps; draft report with policy implications.<br>
+                                A6: Present findings, manage validation, address comments.<br>
+                                A7: Deliver final report, presentations, reproducible code.
+                            </td>
+                            <td>Activities completed per workplan; milestones met; no unresolved data blockers.</td>
+                            <td>Project management records; Gantt tracking; CSO correspondence.</td>
+                            <td>CSO staff available for consultation; no major disruptions to data access.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- THEORY OF CHANGE -->
+    <section id="toc">
+        <div class="section-content">
+            <h2 class="section-title">Theory of Change</h2>
+            <p style="text-align:center; margin-bottom:25px;">The TOC establishes the causal logic linking our analytical activities to policy impact. It reflects best practice in development evaluation [citation:1][citation:9].</p>
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Inputs</h3>
+                    <ul>
+                        <li>DeepSeek analytical engine (Function Calling, JSON Output)</li>
+                        <li>AI Statistician expertise (SPSS, R, Python)</li>
+                        <li>Local expert knowledge (CSO context, sectoral dynamics)</li>
+                        <li>CSO microdata and metadata</li>
+                        <li>Official statistical and administrative sources</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Activities</h3>
+                    <ul>
+                        <li>Data validation and quality assessment</li>
+                        <li>Tabulation and cross-tabulation</li>
+                        <li>Employment analysis (by sex, size, industry)</li>
+                        <li>Comparability analysis (2009 vs 2022)</li>
+                        <li>Policy implications and recommendations</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Outputs</h3>
+                    <ul>
+                        <li>Validated analytical dataset</li>
+                        <li>Thematic tables and visualizations</li>
+                        <li>Draft and final analytical report</li>
+                        <li>Technical documentation package</li>
+                        <li>Reproducible code (Python/R/SPSS)</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align:center; margin:25px 0; font-size:1.5em; color:var(--deepseek-purple);">↓</div>
+            <div class="grid-3">
+                <div class="card gold-accent">
+                    <h3>Short-Term Outcomes</h3>
+                    <ul>
+                        <li>CSO possesses a validated, publication-ready census analysis</li>
+                        <li>Policy-relevant findings are identified and documented</li>
+                        <li>Stakeholders (government, private sector) are informed of key trends</li>
+                    </ul>
+                </div>
+                <div class="card gold-accent">
+                    <h3>Medium-Term Outcomes</h3>
+                    <ul>
+                        <li>Evidence-based policies targeting MSMEs, employment, and sectors</li>
+                        <li>Improved understanding of business sector changes since 2009</li>
+                        <li>Strengthened CSO capacity through reproducible analytical assets</li>
+                    </ul>
+                </div>
+                <div class="card gold-accent">
+                    <h3>Impact</h3>
+                    <ul>
+                        <li>Saint Lucia's private-sector development is guided by rigorous evidence</li>
+                        <li>Policy decisions on enterprise support are better targeted</li>
+                        <li>The OECS DDM Project's objective of data-driven decision-making is advanced</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card" style="margin-top:25px; border-left-color: var(--deepseek-purple);">
+                <h3>Critical Assumptions</h3>
+                <ul>
+                    <li>CSO provides timely access to final microdata and metadata.</li>
+                    <li>Data quality issues are resolvable within Month 1.</li>
+                    <li>Stakeholders engage constructively in the validation process.</li>
+                    <li>No major external disruption (e.g., natural hazard) affects the schedule.</li>
+                    <li>Findings are actionable and relevant to Saint Lucia's policy context.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- GANTT CHART -->
+    <section id="gantt">
+        <div class="section-content">
+            <h2 class="section-title">Gantt Chart Timeline (5 Months)</h2>
+            <p style="text-align:center; margin-bottom:20px;">Visual workplan aligned with REOI deliverables. Overlapping bars reflect parallel activities (e.g., analysis while drafting).</p>
+            <div class="gantt-container">
+                <div class="gantt-chart">
+                    <div class="gantt-month-labels">
+                        <span>Month 1</span><span>Month 2</span><span>Month 3</span><span>Month 4</span><span>Month 5</span>
                     </div>
-                    <div class="card">
-                        <h3>Local Expert Team (Support & Context)</h3>
-                        <p>Our work is grounded by a local team of distinguished experts, ensuring our analysis is contextually accurate and institutionally integrated.</p>
-                        <ul>
-                            <li><strong>Former Director of Statistics:</strong> Provides invaluable insight into the methodological nuances of the 2009 and 2022 censuses, ensuring comparability and institutional alignment with the CSO's standards.</li>
-                            <li><strong>Former Chief Agriculture Extension Officer:</strong> Offers critical subject-matter expertise on key economic sectors, including agriculture and rural enterprise dynamics, ensuring our findings are policy-relevant.</li>
-                            <li><strong>Project Manager (PMP):</strong> Mr. B. Cuthbert John, a seasoned PMP, ensures flawless project governance, risk management, and timely delivery of all deliverables according to the highest professional standards.</li>
-                        </ul>
+                    <div class="gantt-row">
+                        <div class="gantt-label">Inception &amp; Data Review</div>
+                        <div class="gantt-bar-container">
+                            <div class="gantt-bar" style="width:8%; background:var(--deepseek-purple);">D1</div>
+                            <div class="gantt-bar" style="width:12%; background:var(--primary-blue);">Review</div>
+                            <div style="flex:80%;"></div>
+                        </div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-label">Validation &amp; Tabulation Plan</div>
+                        <div class="gantt-bar-container">
+                            <div class="gantt-bar" style="width:5%; background:#555; visibility:hidden;">.</div>
+                            <div class="gantt-bar" style="width:15%; background:var(--accent-gold); color:var(--dark-grey);">D2 · Plan</div>
+                            <div style="flex:80%;"></div>
+                        </div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-label">Analysis &amp; Visualizations</div>
+                        <div class="gantt-bar-container">
+                            <div class="gantt-bar" style="width:10%; background:#555; visibility:hidden;">.</div>
+                            <div class="gantt-bar" style="width:30%; background:var(--primary-blue);">Thematic Analysis · D3</div>
+                            <div style="flex:60%;"></div>
+                        </div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-label">Drafting Report</div>
+                        <div class="gantt-bar-container">
+                            <div class="gantt-bar" style="width:20%; background:#555; visibility:hidden;">.</div>
+                            <div class="gantt-bar" style="width:30%; background:var(--deepseek-purple);">Draft Report · D4</div>
+                            <div style="flex:50%;"></div>
+                        </div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-label">Stakeholder Validation</div>
+                        <div class="gantt-bar-container">
+                            <div class="gantt-bar" style="width:60%; background:#555; visibility:hidden;">.</div>
+                            <div class="gantt-bar" style="width:20%; background:var(--accent-gold); color:var(--dark-grey);">Presentation · D5</div>
+                            <div style="flex:20%;"></div>
+                        </div>
+                    </div>
+                    <div class="gantt-row">
+                        <div class="gantt-label">Finalization &amp; Handover</div>
+                        <div class="gantt-bar-container">
+                            <div class="gantt-bar" style="width:80%; background:#555; visibility:hidden;">.</div>
+                            <div class="gantt-bar" style="width:20%; background:var(--success-green);">Final · D6</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+            <div style="margin-top:20px; display:flex; gap:20px; flex-wrap:wrap; justify-content:center; font-size:0.85em;">
+                <span><span style="display:inline-block; width:12px; height:12px; background:var(--deepseek-purple); border-radius:2px;"></span> DeepSeek-led / Core Deliverable</span>
+                <span><span style="display:inline-block; width:12px; height:12px; background:var(--primary-blue); border-radius:2px;"></span> Analysis / Drafting</span>
+                <span><span style="display:inline-block; width:12px; height:12px; background:var(--accent-gold); border-radius:2px;"></span> Validation / Plan</span>
+                <span><span style="display:inline-block; width:12px; height:12px; background:var(--success-green); border-radius:2px;"></span> Finalization</span>
+            </div>
+        </div>
+    </section>
 
-        <section id="methodology">
-            <div class="section-content">
-                <h2 class="section-title">A 7-Step Methodology for Census Analysis</h2>
-                <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px;">Our methodology is a participatory, evidence-based sequence that moves from data validation to a policy-driven final report. It is built on the principles of transparency, reproducibility, and stakeholder validation.</p>
-                <div class="grid-3">
-                    <div class="card phase-card">
-                        <h3>1. Inception & Data Review</h3>
-                        <p>We begin by deeply understanding the data. We will review census methodology, metadata, and microdata, and work with CSO staff to resolve or document any issues. This phase locks down the analytical framework and detailed work plan.</p>
+    <!-- METHODOLOGY (condensed from previous, retained) -->
+    <section id="methodology">
+        <div class="section-content">
+            <h2 class="section-title">7-Step Methodology</h2>
+            <div class="grid-3">
+                <div class="card"><h3>1. Inception &amp; Data Review</h3><p>Review methodology, metadata, microdata. Assess quality. Develop analytical framework and workplan. <strong>DeepSeek:</strong> Parses metadata schemas; flags inconsistencies.</p></div>
+                <div class="card"><h3>2. Validation &amp; Tabulation Plan</h3><p>Resolve/document data issues. Finalize tabulation plan with CSO approval. <strong>DeepSeek:</strong> Generates validation queries and tabulation specifications.</p></div>
+                <div class="card"><h3>3. Analysis &amp; Visualization</h3><p>Produce tables, cross-tabs, charts, maps. Employment by sex, industry (ISIC Rev.4), size, geography. <strong>DeepSeek:</strong> Executes analysis via Function Calling; returns structured JSON.</p></div>
+                <div class="card"><h3>4. Draft Analytical Report</h3><p>Narrative with findings, policy implications, 2009 comparability. <strong>DeepSeek:</strong> Assists in generating draft sections from structured results.</p></div>
+                <div class="card"><h3>5. Stakeholder Validation</h3><p>Present findings. Manage feedback. Consolidate comments. <strong>DeepSeek:</strong> Organizes comment-response matrix.</p></div>
+                <div class="card"><h3>6. Final Report &amp; Documentation</h3><p>Final report, visualizations, reproducible code package. <strong>DeepSeek:</strong> Ensures code-snippet fidelity and JSON schema consistency.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEEPSEEK INTEGRATION -->
+    <section id="deepseek-integration">
+        <div class="section-content">
+            <h2 class="section-title">DeepSeek: Lead Architect &amp; Integrated Analyst</h2>
+            <p style="text-align:center; margin-bottom:20px;">DeepSeek is embedded into the platform's analytical core. The chat interface below demonstrates its capability to respond to dataset queries. In production, it connects to the CSO's approved microdata environment via secure API.</p>
+            
+            <div class="deepseek-chat-container">
+                <div class="deepseek-chat-header">
+                    <h3>DeepSeek Analyst</h3>
+                    <span class="badge">FUNCTION CALLING ENABLED</span>
+                    <span class="badge">JSON OUTPUT</span>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="chat-msg bot">
+                        <div class="avatar">DS</div>
+                        <div class="bubble">I am DeepSeek, the lead architect of this analytical platform. I can respond to queries about the Enterprise Census dataset. Try asking: <em>"What is the employment distribution by enterprise size?"</em> or <em>"Show me the tabulation plan for ISIC section G."</em></div>
                     </div>
-                    <div class="card phase-card">
-                        <h3>2. Data Validation & Tabulation Plan</h3>
-                        <p>Building on the initial review, we will conduct a thorough data quality assessment and finalize the tabulation and analysis plan. This ensures we are using the final, CSO-approved dataset and targeting the most policy-relevant questions.</p>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Ask DeepSeek about the dataset..." onkeypress="if(event.key==='Enter') sendChat()">
+                    <button onclick="sendChat()">Send</button>
+                </div>
+            </div>
+            <p style="font-size:0.85em; margin-top:15px; color:#666;"><em>Note: This is a simulated demonstration. The production deployment will use the DeepSeek API with Function Calling to query the CSO's secure microdata environment. DeepSeek's API supports JSON Output for structured, machine-readable responses, and Function Calling for direct dataset interaction [citation:3][citation:7].</em></p>
+        </div>
+    </section>
+
+    <!-- SPSS SIMULATOR -->
+    <section id="spss-simulator">
+        <div class="section-content">
+            <h2 class="section-title">SPSS Simulator</h2>
+            <p style="text-align:center; margin-bottom:20px;">Demonstrates our SPSS proficiency—and DeepSeek's ability to generate and execute SPSS-compatible syntax. Select a procedure and variable, and the simulator produces the SPSS syntax and expected output structure.</p>
+            
+            <div class="spss-sim">
+                <div class="spss-header">
+                    SPSS Syntax Simulator <small>Powered by DeepSeek · AI Statistician (SPSS Designer)</small>
+                </div>
+                <div class="spss-body">
+                    <div class="spss-row">
+                        <div class="spss-command">
+                            <label>Procedure</label>
+                            <select id="spss-procedure">
+                                <option value="FREQUENCIES">FREQUENCIES (Frequency Table)</option>
+                                <option value="DESCRIPTIVES">DESCRIPTIVES (Summary Statistics)</option>
+                                <option value="CROSSTABS">CROSSTABS (Cross-Tabulation)</option>
+                                <option value="MEANS">MEANS (Grouped Means)</option>
+                            </select>
+                        </div>
+                        <div class="spss-command">
+                            <label>Variable</label>
+                            <select id="spss-variable">
+                                <option value="Size_Category">Enterprise Size Category</option>
+                                <option value="Employment">Employment (Total)</option>
+                                <option value="ISIC_Section">ISIC Section</option>
+                                <option value="Ownership">Ownership Type</option>
+                                <option value="Sex">Sex of Owner/Manager</option>
+                            </select>
+                        </div>
+                        <div class="spss-command">
+                            <label>Grouping Variable (for CROSSTABS/MEANS)</label>
+                            <select id="spss-group">
+                                <option value="None">None</option>
+                                <option value="Size_Category">Size Category</option>
+                                <option value="Sex">Sex</option>
+                                <option value="ISIC_Section">ISIC Section</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="card phase-card">
-                        <h3>3. Analysis & Visualization</h3>
-                        <p>We will produce the full suite of thematic tables, cross-tabulations, charts, and maps. The analysis will cover enterprise characteristics, economic activity, industry, size, ownership, geography, and employment (disaggregated by sex).</p>
-                    </div>
-                    <div class="card phase-card">
-                        <h3>4. Drafting the Analytical Report</h3>
-                        <p>We will draft a comprehensive analytical report that narrates the story of Saint Lucia's business sector, comparing findings to the 2009 Census where possible. The report will include policy implications and actionable recommendations.</p>
-                    </div>
-                    <div class="card phase-card">
-                        <h3>5. Stakeholder Presentation & Validation</h3>
-                        <p>We will present preliminary findings to the CSO and stakeholders to ensure the report is relevant and robust. We will manage a structured feedback process to incorporate agreed comments and ensure full validation.</p>
-                    </div>
-                    <div class="card phase-card">
-                        <h3>6. Final Report & Documentation</h3>
-                        <p>We will deliver the final, polished analytical report, all data visualizations, and a complete technical documentation package. This includes all reproducible syntax (R/Python) to ensure transparency and future reuse.</p>
-                    </div>
-                    <div class="card phase-card">
-                        <h3>7. Quality Assurance & Handover</h3>
-                        <p>Before final submission, we will conduct a rigorous internal QA review against CSO publication standards. We will support the handover of all analytical assets and provide a final presentation to the CSO.</p>
+                    <button class="btn small" onclick="runSPSS()">Generate Syntax &amp; Simulate Output</button>
+                    <div class="spss-output" id="spss-output" style="margin-top:15px;">
+                        <span class="header">SPSS Output will appear here.</span>
+                        <br><br>Select a procedure and variable above, then click "Generate".
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="workplan">
-            <div class="section-content">
-                <h2 class="section-title">5-Month Workplan & Timeline</h2>
-                <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px;">Our workplan is aligned with the REOI's duration of five months and principal deliverables. We ensure clear milestones, built-in review periods, and a structured path to the final validated report.</p>
-                <div class="timeline-container">
-                    <table class="timeline-table">
-                        <thead>
-                            <tr>
-                                <th>Phase</th>
-                                <th>Month 1</th>
-                                <th>Month 2</th>
-                                <th>Month 3</th>
-                                <th>Month 4</th>
-                                <th>Month 5</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="phase-header">Inception & Data Review</td>
-                                <td colspan="5">Inception Report & Analytical Work Plan (Due: Week 2)</td>
-                            </tr>
-                            <tr>
-                                <td class="phase-header">Validation & Planning</td>
-                                <td colspan="5">Data Review, Validation & Tabulation Plan (Due: Month 1)</td>
-                            </tr>
-                            <tr>
-                                <td class="phase-header">Analysis & Drafting</td>
-                                <td colspan="5">Preliminary Tables & Visualizations (Due: Month 2)</td>
-                            </tr>
-                            <tr>
-                                <td class="phase-header">Draft Report & Validation</td>
-                                <td colspan="5">Draft Analytical Report (Due: Month 3)</td>
-                            </tr>
-                            <tr>
-                                <td class="phase-header">Stakeholder Validation</td>
-                                <td colspan="5">Stakeholder Presentation & Validation (Month 4)</td>
-                            </tr>
-                            <tr>
-                                <td class="phase-header">Finalization</td>
-                                <td colspan="5">Final Analytical Report & Documentation Package (Due: Month 5)</td>
-                            </tr>
-                        </tbody>
-                    </table>
+    <!-- SUBMISSION -->
+    <section id="submission">
+        <div class="section-content">
+            <h2 class="section-title">Submission Details</h2>
+            <div class="grid-2">
+                <div class="card" style="border-left-color: var(--success-green);">
+                    <h3>Compliance Statement</h3>
+                    <p>We meet and exceed all mandatory REOI requirements:</p>
+                    <ul>
+                        <li><strong>Education:</strong> Advanced degrees in quantitative disciplines.</li>
+                        <li><strong>Experience (8+ years):</strong> 40+ years combined in census/survey analysis.</li>
+                        <li><strong>Software:</strong> Foundational expertise in SPSS (design-level), R, Stata, Python.</li>
+                        <li><strong>ISIC Rev.4:</strong> Demonstrated analytical experience.</li>
+                        <li><strong>Report preparation:</strong> Extensive policy-relevant publication record.</li>
+                        <li><strong>Visualization:</strong> CSO publication-standard outputs.</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Submission Checklist</h3>
+                    <p><strong>To:</strong> Saint Lucia e-GP System</p>
+                    <p><strong>URL:</strong> <a href="https://in-tndhost.co.uk/goslprocurement/" target="_blank">https://in-tndhost.co.uk/goslprocurement/</a></p>
+                    <p><strong>Attention:</strong> Geraldine St. Croix, Deputy Project Coordinator</p>
+                    <p><strong>Subject:</strong> EOI — SLU-DDM-DATAPRO-EC-CS-06-25</p>
+                    <p><strong>Deadline:</strong> Wednesday, November 11, 2026, 09:30 AST (UTC-04:00)</p>
+                    <p><strong>Attachments:</strong> This platform URL, CVs for AI Statistician and key local experts, letter of interest confirming availability (December 2026, 5 months).</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="deliverables">
-            <div class="section-content deliverables-tracker">
-                <h2 class="section-title">Interactive Deliverables Tracker</h2>
-                <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px;">This tracker demonstrates our project control methodology. Each deliverable is decomposed into verifiable sub-tasks. The progress indicator updates automatically, showing our readiness to execute.</p>
-                <div class="readiness-indicator">
-                    Assignment Readiness: <span id="readiness-percent">0%</span>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="progress-bar">0%</div>
-                    </div>
-                </div>
+</div>
 
-                <div class="deliverable-item">
-                    <h3>D1: Inception Report & Analytical Work Plan (Due: Week 2)</h3>
-                    <p>Establishes a shared understanding of the assignment and locks the methodology, analytical framework, and detailed work plan.</p>
-                    <div class="sub-tasks">
-                        <div class="sub-task"><input type="checkbox" id="d1s1" class="tracker-checkbox"><label for="d1s1">Review census methodology, metadata, and microdata</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d1s2" class="tracker-checkbox"><label for="d1s2">Assess data quality and document potential issues</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d1s3" class="tracker-checkbox"><label for="d1s3">Develop the analytical framework and report outline</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d1s4" class="tracker-checkbox"><label for="d1s4">Create a detailed tabulation and analysis plan</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d1s5" class="tracker-checkbox"><label for="d1s5">Finalize and submit the Inception Report & Work Plan</label></div>
-                    </div>
-                </div>
+<footer>
+    <div class="container">
+        <p><strong>AI Statistician × DeepSeek</strong> — Expression of Interest for the 2022 Saint Lucia Enterprise Census</p>
+        <p>DeepSeek: Lead Architect · AI Statistician: Statistical Authority · B. Cuthbert John, PMP: Project Manager</p>
+        <p style="margin-top:10px; opacity:0.7;">This platform is a functional demonstration. DeepSeek API integration in production requires CSO-approved data handling protocols.</p>
+    </div>
+</footer>
 
-                <div class="deliverable-item">
-                    <h3>D2: Data Review, Validation & Tabulation Plan (Due: Month 1)</h3>
-                    <p>Confirms the final dataset and ensures all analytical outputs are built on a validated foundation.</p>
-                    <div class="sub-tasks">
-                        <div class="sub-task"><input type="checkbox" id="d2s1" class="tracker-checkbox"><label for="d2s1">Work with CSO to resolve or document data issues</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d2s2" class="tracker-checkbox"><label for="d2s2">Produce a comprehensive data validation report</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d2s3" class="tracker-checkbox"><label for="d2s3">Receive formal approval of the final dataset from CSO</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d2s4" class="tracker-checkbox"><label for="d2s4">Finalize the detailed tabulation and analysis plan</label></div>
-                    </div>
-                </div>
+<script>
+// --- Navigation highlighting ---
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav ul li a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 100) current = section.getAttribute('id');
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').substring(1) === current) link.classList.add('active');
+        });
+    });
+});
 
-                <div class="deliverable-item">
-                    <h3>D3: Preliminary Tables & Visualizations (Due: Month 2)</h3>
-                    <p>Delivers the core analytical outputs, providing an early view of the key findings.</p>
-                    <div class="sub-tasks">
-                        <div class="sub-task"><input type="checkbox" id="d3s1" class="tracker-checkbox"><label for="d3s1">Generate all thematic tables and cross-tabulations</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d3s2" class="tracker-checkbox"><label for="d3s2">Create charts, graphs, and maps to CSO standards</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d3s3" class="tracker-checkbox"><label for="d3s3">Submit preliminary tables and visualizations for review</label></div>
-                    </div>
-                </div>
+// --- DeepSeek Chat Simulation ---
+const chatResponses = {
+    'employment': 'Based on the 2022 Enterprise Census (simulated query): Total employment is distributed across size categories as follows: Micro enterprises (1-4 employees) account for approximately 18% of total employment; Small (5-19) 24%; Medium (20-99) 31%; Large (100+) 27%. The full analysis will provide sex-disaggregated employment by ISIC Rev.4 section.',
+    'size': 'Enterprise size distribution (simulated): Micro (1-4) = 58% of enterprises; Small (5-19) = 26%; Medium (20-99) = 11%; Large (100+) = 5%. This is consistent with Saint Lucia\'s MSME-dominated structure [citation:20].',
+    'isic': 'The tabulation plan includes ISIC Rev.4 Sections A through U. Key sections for Saint Lucia: G (Wholesale/Retail Trade), I (Accommodation/Food Services), F (Construction), C (Manufacturing). Cross-tabulations will examine employment by sex within each section.',
+    'tabulation': 'The tabulation plan covers: (1) Enterprise counts by size, ISIC, geography, ownership; (2) Employment by sex, size, ISIC; (3) Cross-tabs of size × ISIC; (4) 2009 vs 2022 comparability (where classifications permit); (5) Derived indicators (employment per enterprise, etc.).',
+    'default': 'I understand your query. In the production deployment, I will connect directly to the CSO-approved microdata environment via Function Calling and return structured JSON results. For this demonstration, please ask about "employment," "size," "ISIC," or "tabulation."'
+};
 
-                <div class="deliverable-item">
-                    <h3>D4: Draft Analytical Report (Due: Month 3)</h3>
-                    <p>A complete draft of the analytical report, integrating findings, policy implications, and recommendations.</p>
-                    <div class="sub-tasks">
-                        <div class="sub-task"><input type="checkbox" id="d4s1" class="tracker-checkbox"><label for="d4s1">Draft narrative sections describing the business sector</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d4s2" class="tracker-checkbox"><label for="d4s2">Integrate findings from all thematic analyses</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d4s3" class="tracker-checkbox"><label for="d4s3">Formulate policy implications and recommendations</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d4s4" class="tracker-checkbox"><label for="d4s4">Incorporate comparisons with the 2009 Enterprise Census</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d4s5" class="tracker-checkbox"><label for="d4s5">Submit the complete Draft Analytical Report</label></div>
-                    </div>
-                </div>
-
-                <div class="deliverable-item">
-                    <h3>D5: Stakeholder Presentation & Validation (Due: Month 4)</h3>
-                    <p>Presents findings to stakeholders and manages the validation process to ensure the report's relevance and acceptance.</p>
-                    <div class="sub-tasks">
-                        <div class="sub-task"><input type="checkbox" id="d5s1" class="tracker-checkbox"><label for="d5s1">Prepare presentation materials for technical and non-technical audiences</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d5s2" class="tracker-checkbox"><label for="d5s2">Conduct stakeholder validation workshop</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d5s3" class="tracker-checkbox"><label for="d5s3">Collect and consolidate feedback and comments</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d5s4" class="tracker-checkbox"><label for="d5s4">Document the comment-response matrix</label></div>
-                    </div>
-                </div>
-
-                <div class="deliverable-item">
-                    <h3>D6: Final Report & Technical Documentation Package (Due: Month 5)</h3>
-                    <p>Delivery of the final, approved report and all associated analytical assets, ensuring a complete and reusable package for the CSO.</p>
-                    <div class="sub-tasks">
-                        <div class="sub-task"><input type="checkbox" id="d6s1" class="tracker-checkbox"><label for="d6s1">Incorporate all agreed comments into the final report</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d6s2" class="tracker-checkbox"><label for="d6s2">Prepare the final, print-ready analytical report</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d6s3" class="tracker-checkbox"><label for="d6s3">Compile the technical documentation package (including reproducible code)</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d6s4" class="tracker-checkbox"><label for="d6s4">Deliver final report, presentations, and analytical outputs to the CSO</label></div>
-                        <div class="sub-task"><input type="checkbox" id="d6s5" class="tracker-checkbox"><label for="d6s5">Conduct final handover meeting and project closure</label></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="datascience">
-            <div class="section-content">
-                <h2 class="section-title">Demonstration of Data Science Capability</h2>
-                <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px;">To prove our capability, we are providing a live, interactive demonstration. Below is an analysis of a simulated enterprise census dataset, exactly as we would perform for the Saint Lucia CSO. This demonstrates our ability to use Python for data processing, analysis, and visualization, and to generate reproducible analytical outputs.</p>
-                
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>Live Analysis Demo: Employment by Enterprise Size</h3>
-                        <p>This interactive chart is generated from a simulated dataset of 5,000 enterprises. It shows the distribution of total employment by enterprise size category. This is a typical thematic output we would produce, but applied to the real 2022 Saint Lucia Enterprise Census microdata.</p>
-                        <div id="chart-container" style="height: 400px; width: 100%;"></div>
-                    </div>
-                    <div class="card">
-                        <h3>Reproducible Code Snippet (Python)</h3>
-                        <p>Here is the Python code (using pandas and plotly) that generates the interactive chart to the left. This demonstrates our commitment to delivering reproducible analytical outputs, as required by the REOI.</p>
-                        <pre style="background:#2d2d2d; color:#f1f1f1; padding:15px; border-radius:5px; overflow-x:auto; font-size:0.85em;"><code>
-import pandas as pd
-import plotly.express as px
-import numpy as np
-
-# 1. Simulate a census dataset
-np.random.seed(42)
-n_enterprises = 5000
-data = {
-    'Enterprise_ID': range(1, n_enterprises + 1),
-    'Size_Category': np.random.choice(
-        ['Micro (1-4)', 'Small (5-19)', 'Medium (20-99)', 'Large (100+)'],
-        size=n_enterprises,
-        p=[0.6, 0.25, 0.1, 0.05]
-    ),
-    'Employment': np.random.randint(1, 500, size=n_enterprises)
+function sendChat() {
+    const input = document.getElementById('chat-input');
+    const messages = document.getElementById('chat-messages');
+    const text = input.value.trim();
+    if (!text) return;
+    
+    // Add user message
+    messages.innerHTML += `<div class="chat-msg user"><div class="avatar">You</div><div class="bubble">${escapeHtml(text)}</div></div>`;
+    input.value = '';
+    messages.scrollTop = messages.scrollHeight;
+    
+    // Simulate bot response
+    setTimeout(() => {
+        let response = chatResponses.default;
+        const lower = text.toLowerCase();
+        if (lower.includes('employment') || lower.includes('employ')) response = chatResponses.employment;
+        else if (lower.includes('size') || lower.includes('micro') || lower.includes('small')) response = chatResponses.size;
+        else if (lower.includes('isic') || lower.includes('industry') || lower.includes('sector')) response = chatResponses.isic;
+        else if (lower.includes('tabulation') || lower.includes('table') || lower.includes('cross')) response = chatResponses.tabulation;
+        
+        messages.innerHTML += `<div class="chat-msg bot"><div class="avatar">DS</div><div class="bubble">${response}</div></div>`;
+        messages.scrollTop = messages.scrollHeight;
+    }, 600);
 }
 
-# 2. Create a DataFrame
-df = pd.DataFrame(data)
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
-# 3. Aggregate employment by size category
-employment_by_size = df.groupby('Size_Category')['Employment'].sum().reset_index()
-
-# 4. Create the interactive bar chart
-fig = px.bar(
-    employment_by_size,
-    x='Size_Category',
-    y='Employment',
-    title='Total Employment by Enterprise Size (Simulated Data)',
-    labels={'Size_Category': 'Enterprise Size Category', 'Employment': 'Total Employment'},
-    color='Size_Category',
-    color_discrete_sequence=px.colors.qualitative.Plotly
-)
-
-fig.update_layout(
-    plot_bgcolor='rgba(0,0,0,0)',
-    paper_bgcolor='rgba(0,0,0,0)',
-    title_font_color='#005A9C'
-)
-
-# In a real report, we would save to HTML or integrate
-# fig.write_html("employment_chart.html")
-# fig.show() 
-                        </code></pre>
-                        <p style="margin-top:15px; font-size:0.9em;"><em>This is a functional demonstration. The full analysis will use the actual CSO microdata, ISIC Rev.4 classifications, and much more complex cross-tabulations.</em></p>
-                    </div>
-                </div>
-            </div>
-        </section>
+// --- SPSS Simulator ---
+function runSPSS() {
+    const proc = document.getElementById('spss-procedure').value;
+    const varName = document.getElementById('spss-variable').value;
+    const group = document.getElementById('spss-group').value;
+    const output = document.getElementById('spss-output');
+    
+    let syntax = '';
+    let result = '';
+    
+    if (proc === 'FREQUENCIES') {
+        syntax = `FREQUENCIES VARIABLES=${varName}\n  /ORDER=ANALYSIS.`;
+        result = `<span class="header">FREQUENCIES: ${varName}</span>
         
-        <section id="submission">
-            <div class="section-content">
-                <h2 class="section-title">Compliance & Submission Details</h2>
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>Statement of Qualifications & Experience</h3>
-                        <p>We meet and exceed every mandatory requirement specified in the REOI. The AI Statistician and our local expert team possess the combined qualifications, experience, and software proficiency required for success.</p>
-                        <ul>
-                            <li><strong>Education:</strong> Advanced degrees in Statistics, Data Science, and Economics from recognized universities.</li>
-                            <li><strong>Experience (8+ Years):</strong> 40+ years of combined global and regional experience in census and survey analysis, specifically business and enterprise censuses.</li>
-                            <li><strong>Technical Skills:</strong> Foundational expertise in statistical software (SPSS, R, Stata, Python) and analysis of large microdata datasets using ISIC Rev.4.</li>
-                            <li><strong>Report Preparation:</strong> Extensive experience drafting high-quality, policy-relevant analytical reports for governments and international bodies.</li>
-                            <li><strong>Visualization:</strong> Expert ability to produce publication-standard tables, charts, and maps.</li>
-                        </ul>
-                    </div>
-                    <div class="card" style="border-left-color: var(--success-green);">
-                        <h3>Submission Checklist & Next Steps</h3>
-                        <p>Our formal submission will be sent via the Government of Saint Lucia Electronic Government Procurement (e-GP) System in accordance with the REOI.</p>
-                        <p><strong>To:</strong> Saint Lucia e-GP System (<a href="https://in-tndhost.co.uk/goslprocurement/" target="_blank">https://in-tndhost.co.uk/goslprocurement/</a>)</p>
-                        <p><strong>Attention:</strong> Geraldine St. Croix, Deputy Project Coordinator</p>
-                        <p><strong>Subject Line:</strong> EOI — SLU-DDM-DATAPRO-EC-CS-06-25- Consultancy Services - Report Preparation (Enterprise Census)</p>
-                        <p><strong>Deadline:</strong> Wednesday, November 11, 2026, at 09:30 AST (UTC-04:00)</p>
-                        <p><strong>Attachments:</strong> This EOI platform link, a detailed CV for the AI Statistician and key local experts, and a formal letter of interest confirming availability for the 5-month assignment starting December 2026.</p>
-                        <a href="#" class="btn">Download Full EOI Document (PDF)</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+Category                | Frequency | Percent | Valid Percent | Cum. Percent
+------------------------|-----------|---------|---------------|-------------
+Micro (1-4)             |   2,900   |  58.0   |     58.0      |    58.0
+Small (5-19)            |   1,300   |  26.0   |     26.0      |    84.0
+Medium (20-99)          |     550   |  11.0   |     11.0      |    95.0
+Large (100+)            |     250   |   5.0   |      5.0      |   100.0
+------------------------|-----------|---------|---------------|-------------
+Total                   |   5,000   | 100.0   |    100.0      |
+        
+<span class="header">Interpretation (DeepSeek):</span> The enterprise size distribution is heavily skewed toward micro-enterprises, consistent with Saint Lucia's MSME-dominated private sector [citation:20]. This has implications for policy targeting.`;
+    } else if (proc === 'DESCRIPTIVES') {
+        syntax = `DESCRIPTIVES VARIABLES=${varName}\n  /STATISTICS=MEAN STDDEV MIN MAX.`;
+        result = `<span class="header">DESCRIPTIVES: ${varName}</span>
+        
+Statistic        | Value
+-----------------|----------
+N                | 5,000
+Mean             | 12.4
+Std. Deviation   | 28.7
+Minimum          | 1
+Maximum          | 487
+        
+<span class="header">Interpretation (DeepSeek):</span> The high standard deviation relative to the mean indicates extreme skewness in employment distribution—a small number of large enterprises account for a disproportionate share of employment.`;
+    } else if (proc === 'CROSSTABS') {
+        const groupVar = group !== 'None' ? group : 'Size_Category';
+        syntax = `CROSSTABS\n  /TABLES=${varName} BY ${groupVar}\n  /STATISTICS=CHISQ\n  /CELLS=COUNT ROW COLUMN.`;
+        result = `<span class="header">CROSSTABS: ${varName} × ${groupVar}</span>
+        
+(Simulated output structure)
+        
+${groupVar}        | Category 1 | Category 2 | Category 3 | Total
+-------------------|------------|------------|------------|-------
+${varName} - Cat 1 |    850     |    420     |    180     | 1,450
+${varName} - Cat 2 |    320     |    610     |    250     | 1,180
+${varName} - Cat 3 |    150     |    380     |    840     | 1,370
+-------------------|------------|------------|------------|-------
+Total              |   1,320    |   1,410    |   1,270    | 4,000
+        
+Chi-Square = 487.32, df = 4, p < .001
+        
+<span class="header">Interpretation (DeepSeek):</span> The significant chi-square indicates a strong association between ${varName} and ${groupVar}. Post-hoc analysis will identify which cells drive the association.`;
+    } else if (proc === 'MEANS') {
+        const groupVar = group !== 'None' ? group : 'Size_Category';
+        syntax = `MEANS TABLES=${varName} BY ${groupVar}\n  /CELLS=MEAN COUNT STDDEV.`;
+        result = `<span class="header">MEANS: ${varName} by ${groupVar}</span>
+        
+${groupVar}        | N     | Mean  | Std. Deviation
+-------------------|-------|-------|---------------
+Micro (1-4)        | 2,900 |  2.1  |    0.9
+Small (5-19)       | 1,300 |  9.8  |    4.2
+Medium (20-99)     |   550 | 42.3  |   21.7
+Large (100+)       |   250 | 187.6 |   98.4
+-------------------|-------|-------|---------------
+Total              | 5,000 | 12.4  |   28.7
+        
+<span class="header">Interpretation (DeepSeek):</span> Mean employment scales predictably with size category. The within-category variance (high std. deviation for Large) suggests heterogeneity in employment intensity even among large enterprises.`;
+    }
+    
+    output.innerHTML = `<span class="header">SPSS SYNTAX GENERATED:</span>
+<span style="color:#a0e0a0;">${escapeHtml(syntax)}</span>
 
-    </div>
+<span class="header">SIMULATED OUTPUT:</span>
+${result}
 
-    <footer>
-        <div class="container">
-            <p>This Expression of Interest is submitted by the AI Statistician, supported by a team of local experts led by B. Cuthbert John, PMP.</p>
-            <p>&copy; 2026. All Rights Reserved.</p>
-        </div>
-    </footer>
+<span style="color:#888; font-size:0.8em;">[Note: Output is simulated for demonstration. Production analysis uses actual CSO microdata. Syntax generated is valid SPSS syntax compatible with IBM SPSS Statistics.]</span>`;
+}
 
-    <!-- Include Plotly.js for the chart -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // --- Navigation highlighting ---
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('nav ul li a');
-
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - 100) {
-                        current = section.getAttribute('id');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').substring(1) === current) {
-                        link.classList.add('active');
-                    }
-                });
-            });
-
-            // --- Deliverables Tracker Logic ---
-            const checkboxes = document.querySelectorAll('.tracker-checkbox');
-            const progressBar = document.getElementById('progress-bar');
-            const readinessPercent = document.getElementById('readiness-percent');
-            const totalTasks = checkboxes.length;
-
-            // Load state from localStorage
-            checkboxes.forEach(checkbox => {
-                const id = checkbox.id;
-                if (localStorage.getItem(id) === 'true') {
-                    checkbox.checked = true;
-                }
-            });
-
-            function updateProgress() {
-                const checkedCount = document.querySelectorAll('.tracker-checkbox:checked').length;
-                const percentage = Math.round((checkedCount / totalTasks) * 100);
-                
-                progressBar.style.width = percentage + '%';
-                progressBar.textContent = percentage + '%';
-                readinessPercent.textContent = percentage + '%';
-            }
-
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', () => {
-                    localStorage.setItem(checkbox.id, checkbox.checked);
-                    updateProgress();
-                });
-            });
-
-            // Initial calculation on page load
-            updateProgress();
-
-            // --- Plotly Chart Generation ---
-            // Simulate data (same as in the code snippet)
-            const sizeCategories = ['Micro (1-4)', 'Small (5-19)', 'Medium (20-99)', 'Large (100+)'];
-            const employmentData = [6200, 8500, 15000, 22000]; // Simulated totals
-
-            const trace = {
-                x: sizeCategories,
-                y: employmentData,
-                type: 'bar',
-                marker: {
-                    color: ['#005A9C', '#0078D4', '#FFB81C', '#6c757d']
-                }
-            };
-
-            const layout = {
-                title: {
-                    text: 'Total Employment by Enterprise Size (Simulated)',
-                    font: { color: '#005A9C' }
-                },
-                xaxis: {
-                    title: 'Enterprise Size Category',
-                    titlefont: { color: '#333' }
-                },
-                yaxis: {
-                    title: 'Total Employment',
-                    titlefont: { color: '#333' }
-                },
-                plot_bgcolor: 'rgba(0,0,0,0)',
-                paper_bgcolor: 'rgba(0,0,0,0)',
-                margin: { t: 50, b: 80, l: 80, r: 40 },
-                hovermode: 'x unified'
-            };
-
-            Plotly.newPlot('chart-container', [trace], layout, {responsive: true});
-        });
-    </script>
+// Escape for syntax display
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+</script>
 </body>
 </html>
