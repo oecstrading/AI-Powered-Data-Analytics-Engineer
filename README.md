@@ -1,2 +1,2 @@
-# AI-Powered-Data-Analytics-Engineer
-AI Powered Statistics Consultant
+# AI-Powered Deliverables for SL REOI
+AI Powered Statistics Consultant Reports
